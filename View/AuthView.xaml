@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="PlayplaceCloudSync.View.AuthView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PlayplaceCloudSync.View"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}" />
+    </UserControl.Resources>
+    <DockPanel Margin="20">
+        <StackPanel Orientation="Vertical" Margin="0,0,0,10">
+            <TextBlock Text=" Open this URL in your browser to authorise:" Width="250" VerticalAlignment="Center" />
+            <TextBox Text="{Binding AuthUri}" IsReadOnly="True" Margin="0,5,0,0" Width="500"/>
+            <TextBlock Text="Enter the Dropbox code:" Width="250" VerticalAlignment="Center" Margin="0,15,0,0" />
+            <TextBox Text="{Binding Settings.Settings.DropboxAuthCode}" Margin="0,5,0,0" Width="150"/>
+            <Button Content="Authorize" Command="{Binding DropboxAuthCommand}"  Margin="0,5,0,0"/>
+        </StackPanel>
+    </DockPanel>
+
+</UserControl>

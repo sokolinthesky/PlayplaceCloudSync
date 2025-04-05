@@ -1,0 +1,7 @@
+﻿Id: PlayplaceCloudSync_f9f02b21-390d-4c46-b06a-09f501bd2935
+Name: Generic Plugin
+Author: John Doe
+Version: 1.0
+Module: PlayplaceCloudSync.dll
+Type: GenericPlugin
+Icon: icon.png
