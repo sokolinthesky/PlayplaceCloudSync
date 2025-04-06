@@ -61,7 +61,7 @@ namespace PlayplaceCloudSync
             window.Width = 500;
             window.Title = "Auth";
             window.Content = new AuthView();
-            window.DataContext = new AuthViewModel(PlayniteApi, settings, dropboxHelper);
+            window.DataContext = new AuthViewModel(PlayniteApi, settings, dropboxHelper, this);
             window.Owner = PlayniteApi.Dialogs.GetCurrentAppWindow();
             window.WindowStartupLocation = WindowStartupLocation.CenterScreen;
 

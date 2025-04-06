@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Playnite.SDK.Models;
 using Playnite.SDK;
+using System.IO;
+using static Dropbox.Api.Files.SearchMatchType;
 
 namespace PlayplaceCloudSync.ViewModel
 {
@@ -17,11 +19,18 @@ namespace PlayplaceCloudSync.ViewModel
 
         private readonly IPlayniteAPI playniteApi;
         private readonly DropboxHelper dropboxHelper;
+        private readonly PlayplaceCloudSync plugin;
 
-        public AuthViewModel(IPlayniteAPI playniteApi, PlayplaceCloudSyncSettingsViewModel settings, DropboxHelper dropboxHelper)
+        private readonly string dropboxTokenPath;
+
+        public AuthViewModel(IPlayniteAPI playniteApi, PlayplaceCloudSyncSettingsViewModel settings, DropboxHelper dropboxHelper, PlayplaceCloudSync plugin)
         {
             this.playniteApi = playniteApi;
             this.dropboxHelper = dropboxHelper;
+            this.plugin = plugin;
+
+            dropboxTokenPath = Path.Combine(plugin.GetPluginUserDataPath(), "dpb-token.json");
+
             Settings = settings;
             AuthUri = dropboxHelper.authUri();
         }
@@ -31,7 +40,12 @@ namespace PlayplaceCloudSync.ViewModel
         {
             get => new RelayCommand(() =>
             {
-                //todo impl
+               if (File.Exists(dropboxTokenPath))
+                {
+                    File.Delete(dropboxTokenPath);
+                }
+
+                File.WriteAllText(dropboxTokenPath, Settings.Settings.DropboxAuthCode);
             });
         }
 
