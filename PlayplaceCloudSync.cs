@@ -57,7 +57,8 @@ namespace PlayplaceCloudSync
                 ShowMinimizeButton = false,
                 ShowMaximizeButton = true
             });
-            window.Height = 230;
+            //window.Height = 230;
+            window.Height = 500;
             window.Width = 500;
             window.Title = "Auth";
             window.Content = new AuthView();

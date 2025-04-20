@@ -10,6 +10,9 @@
     </UserControl.Resources>
     <DockPanel Margin="20">
         <StackPanel Orientation="Vertical" Margin="0,0,0,10">
+            <Button Content="Upload" Command="{Binding UploadGamesLibrary}"  Margin="0,5,0,0"/>
+            <Button Content="Download" Command="{Binding DownloadGamesLibrary}"  Margin="0,5,0,0"/>
+            
             <TextBlock Text=" Open this URL in your browser to authorise:" Width="250" VerticalAlignment="Center" />
             <TextBox Text="{Binding AuthUri}" IsReadOnly="True" Margin="0,5,0,0" Width="500"/>
             <TextBlock Text="Enter the Dropbox code:" Width="250" VerticalAlignment="Center" Margin="0,15,0,0" />
