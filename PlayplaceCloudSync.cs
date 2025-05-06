@@ -26,7 +26,7 @@ namespace PlayplaceCloudSync
         public PlayplaceCloudSync(IPlayniteAPI api) : base(api)
         {
             settings = new PlayplaceCloudSyncSettingsViewModel(this);
-            dropboxHelper = new DropboxHelper();
+            dropboxHelper = new DropboxHelper(this);
             Properties = new GenericPluginProperties
             {
                 HasSettings = true
@@ -40,7 +40,7 @@ namespace PlayplaceCloudSync
             {
                 new MainMenuItem
                 {
-                    Description = "Open auth window",
+                    Description = "Open auth/sync window",
                     MenuSection = menuSection,
                     Action = _ =>
                     {
@@ -57,10 +57,9 @@ namespace PlayplaceCloudSync
                 ShowMinimizeButton = false,
                 ShowMaximizeButton = true
             });
-            //window.Height = 230;
-            window.Height = 500;
-            window.Width = 500;
-            window.Title = "Auth";
+            window.Height = 300;
+            window.Width = 550;
+            window.Title = "Auth/Sync";
             window.Content = new AuthView();
             window.DataContext = new AuthViewModel(PlayniteApi, settings, dropboxHelper, this);
             window.Owner = PlayniteApi.Dialogs.GetCurrentAppWindow();
