@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Playnite.SDK.Models;
 using Playnite.SDK;
 using System.IO;
+using System;
 
 namespace PlayplaceCloudSync.ViewModel
 {
@@ -40,6 +41,8 @@ namespace PlayplaceCloudSync.ViewModel
                 }
 
                 File.WriteAllText(dbxAuthCodePath, Settings.Settings.DropboxAuthCode);
+
+                playniteApi.Dialogs.ShowMessage("Dropbox auth code successfully saved!");
             });
         }
 
@@ -55,6 +58,8 @@ namespace PlayplaceCloudSync.ViewModel
                 File.WriteAllText(filePath, jsonString);
 
                 dropboxHelper.Upload(File.OpenRead(filePath), "/library.json");
+
+                playniteApi.Dialogs.ShowMessage("Game library successfully uploaded to Dropbox!");
             });
         }
 
@@ -68,12 +73,23 @@ namespace PlayplaceCloudSync.ViewModel
                 File.WriteAllText(filePath, libraryContent);
 
                 Import(libraryContent, playniteApi.Database.Games);
+
+                playniteApi.Dialogs.ShowMessage("Game library successfully imported from from Dropbox!");
             });
         }
 
         public void Import<T>(string content, IItemCollection<T> db) where T : DatabaseObject
         {
-            IEnumerable<T> items = JsonConvert.DeserializeObject<IEnumerable<T>>(content);
+            IEnumerable<T> items;
+
+            try
+            {
+                items = JsonConvert.DeserializeObject<IEnumerable<T>>(content);
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException("Failed to deserialize JSON content.", ex);
+            }
 
             foreach (var item in items)
             {
